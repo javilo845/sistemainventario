@@ -7,9 +7,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,6 +35,15 @@ Route::middleware('auth')->group(function () {
     Route::post('movimientos/traslado', [\App\Http\Controllers\MovimientoInventarioController::class, 'storeTraslado'])->name('movimientos.traslado');
     Route::post('movimientos/ajuste', [\App\Http\Controllers\MovimientoInventarioController::class, 'storeAjuste'])->name('movimientos.ajuste');
     Route::get('movimientos/consultar-stock', [\App\Http\Controllers\MovimientoInventarioController::class, 'consultarStock'])->name('movimientos.consultar-stock');
+
+    // Módulo de Reportes y Exportación (Fase 5)
+    Route::get('reportes/inventario', [\App\Http\Controllers\ReporteController::class, 'inventario'])->name('reportes.inventario');
+    Route::get('reportes/inventario/exportar-excel', [\App\Http\Controllers\ReporteController::class, 'exportarInventarioExcel'])->name('reportes.inventario.excel');
+    Route::get('reportes/inventario/exportar-pdf', [\App\Http\Controllers\ReporteController::class, 'exportarInventarioPdf'])->name('reportes.inventario.pdf');
+
+    Route::get('reportes/movimientos', [\App\Http\Controllers\ReporteController::class, 'movimientos'])->name('reportes.movimientos');
+    Route::get('reportes/movimientos/exportar-excel', [\App\Http\Controllers\ReporteController::class, 'exportarMovimientosExcel'])->name('reportes.movimientos.excel');
+    Route::get('reportes/movimientos/exportar-pdf', [\App\Http\Controllers\ReporteController::class, 'exportarMovimientosPdf'])->name('reportes.movimientos.pdf');
 });
 
 require __DIR__.'/auth.php';
