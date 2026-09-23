@@ -20,6 +20,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('empresas', \App\Http\Controllers\EmpresaController::class);
     Route::resource('sucursales', \App\Http\Controllers\SucursalController::class);
     Route::resource('areas', \App\Http\Controllers\AreaController::class);
+
+    // Módulo de Catálogo Maestro (Fase 3)
+    Route::get('items/{item}/inventario', [\App\Http\Controllers\ItemController::class, 'inventario'])->name('items.inventario');
+    Route::resource('items', \App\Http\Controllers\ItemController::class);
+    Route::resource('categorias', \App\Http\Controllers\CategoriaController::class);
+    Route::resource('proveedores', \App\Http\Controllers\ProveedorController::class);
 });
 
 require __DIR__.'/auth.php';
