@@ -11,10 +11,45 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-6 sm:-my-px sm:ms-8 sm:flex items-center">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        <span class="flex items-center gap-1.5 font-medium">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+                            {{ __('Dashboard') }}
+                        </span>
                     </x-nav-link>
+
+                    @if(auth()->user()->hasRole('Super Administrador'))
+                    <x-nav-link :href="route('empresas.index')" :active="request()->routeIs('empresas.*')">
+                        {{ __('Empresas') }}
+                    </x-nav-link>
+                    @endif
+
+                    <x-nav-link :href="route('sucursales.index')" :active="request()->routeIs('sucursales.*')">
+                        {{ __('Sucursales') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('areas.index')" :active="request()->routeIs('areas.*')">
+                        {{ __('Áreas') }}
+                    </x-nav-link>
+
+                    @if(Route::has('items.index'))
+                    <x-nav-link :href="route('items.index')" :active="request()->routeIs('items.*')">
+                        {{ __('Catálogo') }}
+                    </x-nav-link>
+                    @endif
+
+                    @if(Route::has('movimientos.index'))
+                    <x-nav-link :href="route('movimientos.index')" :active="request()->routeIs('movimientos.*')">
+                        {{ __('Movimientos') }}
+                    </x-nav-link>
+                    @endif
+
+                    @if(Route::has('reportes.inventario'))
+                    <x-nav-link :href="route('reportes.inventario')" :active="request()->routeIs('reportes.*')">
+                        {{ __('Reportes') }}
+                    </x-nav-link>
+                    @endif
                 </div>
             </div>
 
